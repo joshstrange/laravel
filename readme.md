@@ -5,7 +5,7 @@ This is a starter project for using Laravel on Dokku with PostgreSQL as the data
 
 ## Getting Started
 
-#Steps
+###Steps
 
 1) Install [Dokku](https://github.com/progrium/dokku#installing) on your server or [spin up a new droplet](https://www.digitalocean.com/community/articles/how-to-use-the-digitalocean-dokku-application) with it preinstalled on Digital Ocean
 2) If you installed it yourself please also follow steps [2 and 3](https://www.digitalocean.com/community/articles/how-to-use-the-digitalocean-dokku-application) to make sure you have successfully set it up
