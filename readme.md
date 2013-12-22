@@ -1,21 +1,51 @@
-## Laravel PHP Framework
+## Laravel Dokku
 
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/version.png)](https://packagist.org/packages/laravel/framework) [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.png)](https://packagist.org/packages/laravel/framework) [![Build Status](https://travis-ci.org/laravel/framework.png)](https://travis-ci.org/laravel/framework)
+This is a starter project for using Laravel on Dokku with PostgreSQL as the database.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+## Getting Started
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+#Steps
 
-## Official Documentation
+1) Install [Dokku](https://github.com/progrium/dokku#installing) on your server or [spin up a new droplet](https://www.digitalocean.com/community/articles/how-to-use-the-digitalocean-dokku-application) with it preinstalled on Digital Ocean
+2) If you installed it yourself please also follow steps [2 and 3](https://www.digitalocean.com/community/articles/how-to-use-the-digitalocean-dokku-application) to make sure you have successfully set it up
+3) Install [Dokku PostgreSQL](https://github.com/Kloadut/dokku-pg-plugin/) plugin (Run on server as root)
+````bash
+cd /var/lib/dokku/plugins
+git clone https://github.com/Kloadut/dokku-pg-plugin postgresql
+dokku plugins-install
+````
+4) Install [dokku-user-env-compile](https://github.com/musicglue/dokku-user-env-compile) plugin (Run on server as root)
+````bash
+cd /var/lib/dokku/plugins
+git clone https://github.com/musicglue/dokku-user-env-compile.git user-env-compile
+dokku plugins-install
+````
+5) Clone this repo to your local machine and run the following commands
+````bash
+git clone https://github.com/joshstrange/laravel-dokku
+cd laravel-dokku
+composer update
+git commit -am 'Composer Lock File'
+git remote add dokku dokku@YOURHOSTNAME:YOURAPPNAME
+git push dokku master
+````
+When this is done you should be able to visit the URL provided and see "Laravel Dokku Hello World"
+6) Create PostgreSQL DB for your (Run on server as root), make sure to name the the exact same as your app above
+````bash
+dokku postgresql:create YOURAPPNAME
+````
+6.5) If the domain you are using does not have the string "dokku" in it (ex: *.dokku.mydomain.com VHost) then change line 30 of bootstrap/start.php to:
+````
+'dokku' => array('*dokku*', 'YOURDOMAIN'),
+````
+7) Add this line to your composer.json file in the "scripts" -> "post-install-cmd" section as the last command
+````json
+"php artisan migrate --env=dokku"
+````
+8) Commit and push your changes
+````bash
+git commit -am 'Adding DB migrations'
+git push dokku master
+````
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
-
-### Contributing To Laravel
-
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
