@@ -21,3 +21,11 @@ Route::get('/', function()
 {
 	return 'Laravel Dokku Hello World';
 });
+
+Route::get('dbtest', function()
+{
+	$testData = DB::table('test')->get();
+	return 'The following was found in the "test" table: <br>'.join('<br>', array_map(function($item){
+		return $item->data;
+	},$testData));
+});
