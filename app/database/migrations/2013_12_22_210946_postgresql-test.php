@@ -17,8 +17,7 @@ class PostgresqlTest extends Migration {
 			$table->text('data');
 		});
 		DB::table('test')->insert(
-			array('data' => 'This data was inserted by the migration'),
-			array('data' => 'So was this data!')
+			array('data' => 'This data was inserted by the migration')
 		);
 
 	}

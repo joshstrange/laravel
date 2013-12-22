@@ -29,8 +29,3 @@ Route::get('dbtest', function()
 		return $item->data;
 	},$testData));
 });
-
-Route::get('env', function(){
-	$environment = App::environment();
-	return print_r($environment,1);
-});

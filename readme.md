@@ -44,4 +44,11 @@ dokku postgresql:create YOURAPPNAME
 git commit -am 'Adding DB migrations'
 git push dokku master
 ````
+9) Now visit YOURAPP/dbtest, you should see the following:
+````
+The following was found in the "test" table:
+This data was inserted by the migration
+````
+
+That's it! Now you can push your code to Dokku just using `git push dokku master` after committing your code. The PostgreSQL data is stored on the server running Dokku and not inside the container running PostgreSQL but even then you should probably not run this in production. I use Dokku as my own private Heroku to spin up apps I want to play with and/or test out new ideas.
 
