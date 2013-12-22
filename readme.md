@@ -35,13 +35,9 @@ When this is done you should be able to visit the URL provided and see "Laravel 
 ````bash
 dokku postgresql:create YOURAPPNAME
 ````
-6.5) If the domain you are using does not have the string "dokku" in it (ex: *.dokku.mydomain.com VHost) then change line 30 of bootstrap/start.php to:
-````
-'dokku' => array('*dokku*', 'YOURDOMAIN'),
-````
 7) Add this line to your composer.json file in the "scripts" -> "post-install-cmd" section as the last command
 ````json
-"php artisan migrate --env=dokku"
+"php artisan migrate"
 ````
 8) Commit and push your changes
 ````bash

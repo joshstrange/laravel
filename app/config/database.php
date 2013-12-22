@@ -1,5 +1,7 @@
 <?php
-
+$database_url = exec('echo $DATABASE_URL');
+$pgsql = [];
+preg_match("/postgres:\/\/([a-z]*):([a-zA-Z0-9]*)@([0-9]+.[0-9]+.[0-9]+.[0-9]+)\/([a-z]*)/um", $database_url, $pgsql);
 return array(
 
 	/*
@@ -26,7 +28,7 @@ return array(
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'pgsql',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -55,9 +57,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'database',
-			'username'  => 'root',
-			'password'  => '',
+			'database'  => 'laravelbootstrapstarter',
+			'username'  => 'user',
+			'password'  => 'password',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
@@ -65,10 +67,10 @@ return array(
 
 		'pgsql' => array(
 			'driver'   => 'pgsql',
-			'host'     => 'localhost',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
+			'host'     => $pgsql[3],
+			'database' => $pgsql[4],
+			'username' => $pgsql[1],
+			'password' => $pgsql[2],
 			'charset'  => 'utf8',
 			'prefix'   => '',
 			'schema'   => 'public',
@@ -92,7 +94,7 @@ return array(
 	|
 	| This table keeps track of all the migrations that have already run for
 	| your application. Using this information, we can determine which of
-	| the migrations on disk haven't actually been run in the database.
+	| the migrations on disk have not actually be run in the databases.
 	|
 	*/
 
@@ -111,7 +113,7 @@ return array(
 
 	'redis' => array(
 
-		'cluster' => false,
+		'cluster' => true,
 
 		'default' => array(
 			'host'     => '127.0.0.1',
